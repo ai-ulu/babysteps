@@ -2,7 +2,11 @@
 import { GoogleGenAI, Content } from "@google/genai";
 import { BabyProfile, ChatMessage } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
+if (!apiKey) {
+  console.error("GEMINI_API_KEY is not set.");
+}
+const ai = new GoogleGenAI({ apiKey: apiKey });
 
 export const askParentingAdvisor = async (history: ChatMessage[], profile: BabyProfile): Promise<string> => {
   try {
