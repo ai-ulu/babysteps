@@ -1,15 +1,18 @@
 
-import { GoogleGenAI, Content } from "@google/genai";
+import type { Content } from "@google/genai";
 import { BabyProfile, ChatMessage } from "../types";
 
 const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
-if (!apiKey) {
-  console.error("GEMINI_API_KEY is not set.");
-}
-const ai = new GoogleGenAI({ apiKey: apiKey });
 
 export const askParentingAdvisor = async (history: ChatMessage[], profile: BabyProfile): Promise<string> => {
+  if (!apiKey) {
+    console.error("GEMINI_API_KEY is not set.");
+    return "API anahtarı ayarlanmamış. Lütfen yönetici ile iletişime geçin.";
+  }
+
   try {
+    const { GoogleGenAI } = await import('@google/genai');
+    const ai = new GoogleGenAI({ apiKey: apiKey });
     // Yaş hesaplama
     const birthDate = new Date(profile.birthDate);
     const now = new Date();

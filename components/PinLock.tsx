@@ -14,6 +14,7 @@ const PinLock: React.FC<PinLockProps> = ({ mode, onSuccess, onReset, themeColor 
   const [confirmPin, setConfirmPin] = useState(''); // For setup mode
   const [error, setError] = useState('');
   const [step, setStep] = useState<'enter' | 'confirm'>('enter'); // For setup flow
+  const [isShaking, setIsShaking] = useState(false);
 
   const handleNumClick = (num: number) => {
     setError('');
@@ -41,8 +42,12 @@ const PinLock: React.FC<PinLockProps> = ({ mode, onSuccess, onReset, themeColor 
         // If success handler doesn't unmount us (wrong pin), we reset
         setTimeout(() => {
             if (pin.length === 4) { // Still here?
-                setPin('');
                 setError('Hatalı PIN');
+                setIsShaking(true);
+                setTimeout(() => {
+                    setIsShaking(false)
+                    setPin('');
+                }, 400);
             }
         }, 300);
       }
@@ -54,9 +59,13 @@ const PinLock: React.FC<PinLockProps> = ({ mode, onSuccess, onReset, themeColor 
           onSuccess(pin);
         } else {
           setError('PINler eşleşmiyor. Tekrar dene.');
-          setPin('');
-          setConfirmPin('');
-          setStep('enter');
+          setIsShaking(true);
+          setTimeout(() => {
+            setIsShaking(false)
+            setPin('');
+            setConfirmPin('');
+            setStep('enter');
+          }, 400);
         }
       }
     }
@@ -81,7 +90,7 @@ const PinLock: React.FC<PinLockProps> = ({ mode, onSuccess, onReset, themeColor 
       </div>
 
       {/* PIN Dots */}
-      <div className="flex gap-4 mb-8">
+      <div className={`flex gap-4 mb-8 ${isShaking ? 'animate-shake' : ''}`}>
         {[0, 1, 2, 3].map(i => (
           <div 
             key={i} 
