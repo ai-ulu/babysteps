@@ -127,7 +127,7 @@ const PinLock: React.FC<PinLockProps> = ({ mode, onSuccess, onReset, themeColor 
           <button
             key={num}
             onClick={() => handleNumClick(num)}
-            className="w-16 h-16 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-2xl font-bold transition-all active:scale-95 flex items-center justify-center"
+            className="w-16 h-16 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-2xl font-bold transition-all active:scale-95 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
           >
             {num}
           </button>
@@ -135,13 +135,14 @@ const PinLock: React.FC<PinLockProps> = ({ mode, onSuccess, onReset, themeColor 
         <div className="w-16 h-16"></div>
         <button
           onClick={() => handleNumClick(0)}
-          className="w-16 h-16 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-2xl font-bold transition-all active:scale-95 flex items-center justify-center"
+          className="w-16 h-16 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-2xl font-bold transition-all active:scale-95 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
         >
           0
         </button>
         <button
           onClick={handleDelete}
-          className="w-16 h-16 rounded-full hover:bg-white/10 flex items-center justify-center transition-all active:scale-95 text-white/70 hover:text-white"
+          aria-label="Delete"
+          className="w-16 h-16 rounded-full hover:bg-white/10 flex items-center justify-center transition-all active:scale-95 text-white/70 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
         >
           <Delete size={24} />
         </button>
