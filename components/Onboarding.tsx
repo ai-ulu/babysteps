@@ -53,7 +53,11 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
       
       {/* Skip Button */}
       <div className="w-full flex justify-end pt-4">
-        <button onClick={onComplete} className="text-white/70 text-sm font-bold hover:text-white">
+        <button
+          onClick={onComplete}
+          aria-label="Onboarding adımlarını geç"
+          className="rounded-full px-4 py-2 text-sm font-bold text-white/70 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+        >
           Geç
         </button>
       </div>
