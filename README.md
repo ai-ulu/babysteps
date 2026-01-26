@@ -40,7 +40,8 @@ Follow these instructions to set up and run the project locally for development.
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/babysteps.git
+    # Replace with your repository's clone URL
+    git clone https://github.com/example-user/babysteps.git
     cd babysteps
     ```
 
