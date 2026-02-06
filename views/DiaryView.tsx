@@ -490,9 +490,11 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
             <p className="text-sm text-slate-400 font-medium">Bebeğinizin özel anlarını kaydedin.</p>
             <button 
               onClick={() => setIsAdding(!isAdding)}
+              aria-label={isAdding ? 'Not eklemeyi kapat' : 'Yeni anı ekle'}
+              title={isAdding ? 'Kapat' : 'Anı Ekle'}
               className={`bg-${themeColor}-500 text-white p-2 rounded-full shadow-lg shadow-${themeColor}-200 active:scale-95 transition-transform`}
             >
-              <Plus size={24} />
+              <Plus size={24} className={`transition-transform duration-300 ${isAdding ? 'rotate-45' : 'rotate-0'}`} />
             </button>
           </div>
 
@@ -524,6 +526,8 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
                   )}
                   <button 
                     onClick={() => { setSelectedMedia(null); setSelectedMediaType('image'); }}
+                    aria-label="Medyayı kaldır"
+                    title="Kaldır"
                     className="absolute -top-2 -right-2 bg-slate-800 text-white p-1 rounded-full text-xs"
                   >
                     <X size={12} />
@@ -579,6 +583,7 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
                       <div className="flex gap-2">
                          <button 
                            onClick={() => handleShareEntry(entry)} 
+                           aria-label="Anıyı paylaş"
                            className="text-slate-300 hover:text-blue-400 transition-colors p-1"
                            title="Paylaş"
                          >
@@ -586,6 +591,8 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
                          </button>
                          <button 
                            onClick={() => onDeleteEntry(entry.id)} 
+                           aria-label="Anıyı sil"
+                           title="Sil"
                            className="text-slate-300 hover:text-red-400 transition-colors p-1"
                          >
                            <X size={14} />
@@ -634,6 +641,7 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
                       <button 
                         key={sound.id}
                         onClick={() => toggleSound(sound.id)}
+                        aria-label={playingSound === sound.id ? `${sound.name} sesini durdur` : `${sound.name} sesini çal`}
                         className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${playingSound === sound.id ? 'bg-white text-indigo-500 animate-pulse scale-110 shadow-lg' : 'bg-white/20 hover:bg-white/30'}`}
                         title={sound.name}
                       >
@@ -653,6 +661,8 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
           <div className="grid grid-cols-4 gap-2">
             <button 
               onClick={() => setActiveAction('feeding')}
+              aria-pressed={activeAction === 'feeding'}
+              aria-label="Beslenme kaydı ekle"
               className={`p-3 rounded-2xl border flex flex-col items-center gap-2 transition-all ${activeAction === 'feeding' ? 'bg-orange-50 border-orange-200 text-orange-600 shadow-md' : 'bg-white border-slate-100 text-slate-500 hover:border-orange-100 hover:bg-orange-50/50'}`}
             >
               <div className={`p-2 rounded-full ${activeAction === 'feeding' ? 'bg-orange-100' : 'bg-slate-50'}`}>
@@ -663,6 +673,8 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
 
             <button 
               onClick={() => setActiveAction('sleep')}
+              aria-pressed={activeAction === 'sleep'}
+              aria-label="Uyku kaydı ekle"
               className={`p-3 rounded-2xl border flex flex-col items-center gap-2 transition-all ${activeAction === 'sleep' ? 'bg-indigo-50 border-indigo-200 text-indigo-600 shadow-md' : 'bg-white border-slate-100 text-slate-500 hover:border-indigo-100 hover:bg-indigo-50/50'}`}
             >
                <div className={`p-2 rounded-full ${activeAction === 'sleep' ? 'bg-indigo-100' : 'bg-slate-50'}`}>
@@ -673,6 +685,8 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
 
             <button 
               onClick={() => setActiveAction('diaper')}
+              aria-pressed={activeAction === 'diaper'}
+              aria-label="Alt değiştirme kaydı ekle"
               className={`p-3 rounded-2xl border flex flex-col items-center gap-2 transition-all ${activeAction === 'diaper' ? 'bg-cyan-50 border-cyan-200 text-cyan-600 shadow-md' : 'bg-white border-slate-100 text-slate-500 hover:border-cyan-100 hover:bg-cyan-50/50'}`}
             >
                <div className={`p-2 rounded-full ${activeAction === 'diaper' ? 'bg-cyan-100' : 'bg-slate-50'}`}>
@@ -683,6 +697,8 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
 
             <button 
               onClick={() => setActiveAction('tooth')}
+              aria-pressed={activeAction === 'tooth'}
+              aria-label="Diş çıkarma kaydı ekle"
               className={`p-3 rounded-2xl border flex flex-col items-center gap-2 transition-all ${activeAction === 'tooth' ? 'bg-rose-50 border-rose-200 text-rose-600 shadow-md' : 'bg-white border-slate-100 text-slate-500 hover:border-rose-100 hover:bg-rose-50/50'}`}
             >
                <div className={`p-2 rounded-full ${activeAction === 'tooth' ? 'bg-rose-100' : 'bg-slate-50'}`}>
@@ -757,8 +773,9 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
               )}
 
               <div className="mb-4">
-                 <label className="text-xs font-medium text-slate-400 ml-1 mb-1 block">{feedType === 'breast' ? 'Süre (dakika) - Elle Giriş' : 'Miktar (ml)'}</label>
+                 <label htmlFor="feedAmount" className="text-xs font-medium text-slate-400 ml-1 mb-1 block">{feedType === 'breast' ? 'Süre (dakika) - Elle Giriş' : 'Miktar (ml)'}</label>
                  <input 
+                   id="feedAmount"
                    type="number" 
                    value={feedAmount}
                    onChange={e => setFeedAmount(e.target.value)}
@@ -806,8 +823,9 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
               </div>
 
               <div className="mb-4">
-                 <label className="text-xs font-medium text-slate-400 ml-1 mb-1 block">Uyku Süresi (Elle Düzenle)</label>
+                 <label htmlFor="sleepDuration" className="text-xs font-medium text-slate-400 ml-1 mb-1 block">Uyku Süresi (Elle Düzenle)</label>
                  <input 
+                   id="sleepDuration"
                    type="text" 
                    value={sleepDuration}
                    onChange={e => setSleepDuration(e.target.value)}
@@ -1029,7 +1047,12 @@ const DiaryView: React.FC<DiaryViewProps> = ({ entries, onAddEntry, onDeleteEntr
                             </div>
                          </div>
                       </div>
-                      <button onClick={() => onDeleteEntry(entry.id)} className="text-slate-300 hover:text-red-400 p-2">
+                      <button
+                        onClick={() => onDeleteEntry(entry.id)}
+                        aria-label="Kaydı sil"
+                        title="Sil"
+                        className="text-slate-300 hover:text-red-400 p-2"
+                      >
                         <X size={14} />
                       </button>
                    </div>
