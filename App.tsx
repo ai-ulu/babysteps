@@ -307,7 +307,7 @@ const App: React.FC = () => {
           onConfirm={handleConfirmReset}
           title="Uygulamayı Sıfırla"
           message="Dikkat! Tüm verileriniz kalıcı olarak silinecek. Bu işlem geri alınamaz. Onaylıyor musunuz?"
-          confirmText="Evet, Sıfırla"
+          confirmText="Evet, Sıfırla ve Verileri Sil"
           cancelText="İptal"
           themeColor={themeColor}
         />
